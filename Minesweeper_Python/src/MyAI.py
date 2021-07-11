@@ -62,7 +62,7 @@ class MyAI( AI ):
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
 					self.to_uncovered.append((i,j))
-			print(len(AI.Action.UNCOVER))
+			print(len(self.to_uncovered))
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 			print(self.move)
