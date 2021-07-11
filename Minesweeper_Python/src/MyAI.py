@@ -58,7 +58,6 @@ class MyAI( AI ):
 		if(0 == number and self.move==0):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
-					
 					# boundary checking
 					if(i<0 or i>self.row or j<0 or j-1>self.col):
 						continue
