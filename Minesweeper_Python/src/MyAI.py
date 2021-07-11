@@ -56,7 +56,7 @@ class MyAI( AI ):
 		# Uncover all if number = 0
 		if(0 == number and self.move==0):
 			for i in range(self.x, self.x+1):
-				for j in range(self.y, self.y1):
+				for j in range(self.y, self.y+1):
 					# boundary checking
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
