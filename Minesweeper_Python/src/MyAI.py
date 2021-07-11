@@ -43,10 +43,10 @@ class MyAI( AI ):
 		
 		# Uncover all if number = 0
 		if(0 == number):
-			for i in range(3):
-				for j in range(3):
+			for i in range(self.x-1, self.x+1):
+				for j in range(self.h-1, self.j+1):
 					# boundary checking
-					if(self.x-i-1<0 or self.x+1>self.row or self.y-j-1<0 or self.y+1>self.col):
+					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
 					Action(AI.Action.UNCOVER, i, j)
 					self.frotier.append((i,j))
@@ -55,6 +55,8 @@ class MyAI( AI ):
 			for i in range(self.row):
 				for j in range(self.col):
 					#if(i==self.x+1 or i==self.x+1 or)
+					if(i-self.x>=-1 and i-self.x<=1  and j-self.y>=-1 and j-self.y<=1):
+						continue
 					Action(AI.Action.UNCOVER, i, j)
 					
 					self.frotier.append((i,j))
