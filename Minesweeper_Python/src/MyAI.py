@@ -55,6 +55,7 @@ class MyAI( AI ):
 					# boundary checking
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
+					print(i,j)
 					self.uncovered.remove((i,j))
 					self.frotier.append((i,j))
 					return Action(AI.Action.UNCOVER, i, j)
