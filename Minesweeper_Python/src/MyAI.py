@@ -59,7 +59,7 @@ class MyAI( AI ):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					# boundary checking
-					if(i<0 or i>self.row or j<0 or j>self.col):
+					if( (i<0 or i>self.row) and (j<0 or j>self.col) ):
 						continue
 					if(i==self.x and j==self.y): # skip itself
 						continue
