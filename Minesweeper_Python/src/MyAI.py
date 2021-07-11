@@ -41,6 +41,25 @@ class MyAI( AI ):
 		#							YOUR CODE BEGINS						   #
 		########################################################################
 		
+		# Uncover all if number = 0
+		if(0 == number):
+			for i in range(3):
+				for j in range(3):
+					# boundary checking
+					if(self.x-i-1<0 or self.x+1>self.row or self.y-j-1<0 or self.y+1>self.col):
+						continue
+					Action(AI.Action.UNCOVER, i, j)
+					self.frotier.append((i,j))
+
+		else: #number is 1, then uncover all except its neighboor.
+			for i in range(self.row):
+				for j in range(self.col):
+					#if(i==self.x+1 or i==self.x+1 or)
+					Action(AI.Action.UNCOVER, i, j)
+					
+					self.frotier.append((i,j))
+
+		
 		#return Action(AI.Action.LEAVE)
 		
 		
