@@ -29,6 +29,7 @@ class MyAI( AI ):
 		self.x = startX 
 		self.y = startY
 		self.uncovered =[]
+		self.to_uncovered =[]
 		for i in range(self.row):
 				for j in range(self.col):
 					self.uncovered.append((i,j))
@@ -56,8 +57,8 @@ class MyAI( AI ):
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
 					self.uncovered.remove((i,j))
+					self.to_uncovered.append((i,j))
 					self.frotier.append((i,j))
-					return Action(AI.Action.UNCOVER, i, j)
 
 		else: #number is 1, then uncover all except its neighboor.
 			for i in range(self.row):
@@ -65,10 +66,10 @@ class MyAI( AI ):
 					#if(i==self.x+1 or i==self.x+1 or)
 					if(i-self.x>=-1 and i-self.x<=1  and j-self.y>=-1 and j-self.y<=1):
 						continue
-					return Action(AI.Action.UNCOVER, i, j)
+					self.to_uncovered.append((i,j))
 					self.uncovered.remove((i,j))
 					
-		if(self.uncovered != [] ):
+		while(self.to_uncovered != [] ):
 			temp = self.uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 		
