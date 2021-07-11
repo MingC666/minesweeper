@@ -63,6 +63,7 @@ class MyAI( AI ):
 						continue
 					self.to_uncovered.append((i,j))
 					print(i,j)
+			print(len(self.to_uncovered))
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
