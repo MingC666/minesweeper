@@ -50,8 +50,10 @@ class MyAI( AI ):
 		print(number)
 
 		if(0 == number):
-			for i in range(self.x-1, self.x+1):
-				for j in range(self.y-1, self.y+1):
+			#for i in range(self.x-1, self.x+1):
+				#for j in range(self.y-1, self.y+1):
+			for i in range(max(self.x-1,0), min(self.row, self.x+2) ):
+				for j in range(max(self.x-1,0), min(self.col, self.y+2)):
 					# boundary checking
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
