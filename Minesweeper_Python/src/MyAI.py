@@ -30,6 +30,7 @@ class MyAI( AI ):
 		self.y = startY
 		self.uncovered =[]
 		self.to_uncovered =[]
+		self.move=0
 		for i in range(self.row):
 				for j in range(self.col):
 					self.uncovered.append((i,j))
@@ -46,19 +47,23 @@ class MyAI( AI ):
 		########################################################################
 		#							YOUR CODE BEGINS						   #
 		########################################################################
+		while(self.move>0):
+			temp=self.to_uncovered.pop(0)
+			self.move-=1
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 		
-		# Uncover all if number = 0
-		print(number)
 
-		if(0 == number):
+		# Uncover all if number = 0
+		if(0 == number and self.move==0):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					# boundary checking
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
-					self.uncovered.remove((i,j))
 					self.to_uncovered.append((i,j))
-					self.frotier.append((i,j))
+			temp=self.to_uncovered.pop(0)
+			self.move=7
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 		else: #number is 1, then uncover all except its neighboor.
 			for i in range(self.row):
@@ -70,7 +75,7 @@ class MyAI( AI ):
 					self.uncovered.remove((i,j))
 					
 		while(self.to_uncovered != [] ):
-			temp = self.to_uncovered.pop(0)
+			temp = self.uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 		
 		#return Action(AI.Action.LEAVE)
