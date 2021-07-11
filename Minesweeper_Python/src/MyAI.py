@@ -60,8 +60,8 @@ class MyAI( AI ):
 					# boundary checking
 					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
-						self.to_uncovered.append((i,j))
-						print(i,j)
+					self.to_uncovered.append((i,j))
+					print(i,j)
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 			print(self.move)
