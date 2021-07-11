@@ -55,6 +55,7 @@ class MyAI( AI ):
 		
 
 		# Uncover all if number = 0
+		print(self.x, self.y)
 		if(0 == number and self.move==0):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
