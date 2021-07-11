@@ -70,7 +70,7 @@ class MyAI( AI ):
 					self.uncovered.remove((i,j))
 					
 		while(self.to_uncovered != [] ):
-			temp = self.uncovered.pop(0)
+			temp = self.to_uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 		
 		#return Action(AI.Action.LEAVE)
