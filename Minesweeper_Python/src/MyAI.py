@@ -65,7 +65,6 @@ class MyAI( AI ):
 			print(len(self.to_uncovered))
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
-			print(self.move)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 		
