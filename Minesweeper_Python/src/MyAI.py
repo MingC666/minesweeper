@@ -65,8 +65,7 @@ class MyAI( AI ):
 					if(i==self.x+1 and j==self.y+1): #i skip itself
 						continue
 					self.to_uncovered.append((i,j))
-					print(i,j)
-			#print(len(self.to_uncovered))
+			print(len(self.to_uncovered))
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
