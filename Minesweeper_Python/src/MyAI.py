@@ -62,7 +62,7 @@ class MyAI( AI ):
 					# boundary checking
 					if(i<0 or i>self.row-1 or j<0 or j>self.col-1):
 						continue
-					if(i==self.x and j==self.y): #i skip itself
+					if(i==self.x+1 and j==self.y+1): #i skip itself
 						continue
 					self.to_uncovered.append((i,j))
 					print(i,j)
