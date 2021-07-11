@@ -62,7 +62,8 @@ class MyAI( AI ):
 						continue
 					self.to_uncovered.append((i,j))
 			temp=self.to_uncovered.pop(0)
-			self.move=7
+			self.move=len(self.to_uncovered)
+			print(self.move)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 		else: #number is 1, then uncover all except its neighboor.
