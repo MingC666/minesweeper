@@ -58,9 +58,10 @@ class MyAI( AI ):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					# boundary checking
-					if(i<1 or i>self.row+1 or j<1 or j>self.col+1):
+					if(i<0 or i>self.row or j<0 or j>self.col):
 						continue
-					self.to_uncovered.append((i,j))
+						self.to_uncovered.append((i,j))
+						print(i,j)
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 			print(self.move)
