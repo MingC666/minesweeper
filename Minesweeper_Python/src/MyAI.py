@@ -54,7 +54,7 @@ class MyAI( AI ):
 					if(i==self.x and j==self.y): #i skip itself
 						continue
 					if((i,j) in self.dangerous):  #if '0' 's neigher is dangerous, then remove it from dangerous
-						self.dangerous.clear((i,j))
+						self.dangerous.remove((i,j))
 					self.uncovered.append((i,j))
 					self.to_uncovered.append((i,j))
 
