@@ -28,9 +28,9 @@ class MyAI( AI ):
 		self.totalMines = totalMines
 		self.x = startX 
 		self.y = startY
-		self.uncovered = []
-		self.to_uncovered = []
-		self.covered = []
+		self.uncovered =[]
+		self.to_uncovered =[]
+		self.move=0
 		for i in range(self.row):
 				for j in range(self.col):
 					self.uncovered.append((i,j))
@@ -47,50 +47,41 @@ class MyAI( AI ):
 		########################################################################
 		#							YOUR CODE BEGINS						   #
 		########################################################################
+		while(self.move>0):
+			temp=self.to_uncovered.pop(0)
+			print(temp[0], temp[1])
+			self.move-=1
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 		
 
 		# Uncover all if number = 0
-		if(0 == number and self.to_uncovered==[]):
+		print(self.x, self.y)
+		if(0 == number and self.move==0):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					# boundary checking
 					if(i<0 or i>self.row-1 or j<0 or j>self.col-1):
 						continue
-					if(i==self.x and j==self.y): # skip itself
-						continue
-					# check if the node is covered or not
-					if (i,j) in self.covered:
+					if(i==self.x and j==self.y): #i skip itself
 						continue
 					self.to_uncovered.append((i,j))
-					self.covered.append((i,j))
-		
+			print(len(self.to_uncovered))
+			temp=self.to_uncovered.pop(0)
+			self.move=len(self.to_uncovered)
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
-		else: #number is 1 for 5*5, then uncover all except its neighboor.
-			for i in range(self.row-1):
-				for j in range(self.col-1):
-					if (i,j) in self.covered:
+		else: #number is 1, then uncover all except its neighboor.
+			for i in range(self.row):
+				for j in range(self.col):
+					#if(i==self.x+1 or i==self.x+1 or)
+					if(i-self.x>=-1 and i-self.x<=1  and j-self.y>=-1 and j-self.y<=1):
 						continue
 					self.to_uncovered.append((i,j))
 					self.uncovered.remove((i,j))
-		# until now, all 0 must be found	
-
+					
 		while(self.to_uncovered != [] ):
 			temp = self.uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
-
-			
-		# find uncover list
-		for i in range(self.row-1):
-				for j in range(self.col-1):		
-					if (i,j) in self.covered:
-						continue
-					self.uncovered.append(i,j)
-		
-		while(self.to_uncovered != [] ):
-			temp = self.uncovered.pop(0)
-			return Action(AI.Action.UNCOVER, temp[0], temp[1])
-		#print(self.uncovered)			
-
 		
 		#return Action(AI.Action.LEAVE)
 		
