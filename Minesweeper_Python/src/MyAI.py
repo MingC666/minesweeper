@@ -28,8 +28,8 @@ class MyAI( AI ):
 		self.totalMines = totalMines
 		self.x = startX 
 		self.y = startY
-		self.covered = []
-		self.to_covered = []
+		self.uncovered = []
+		self.to_uncovered = []
 		self.dangerous = []
 		########################################################################
 		#							YOUR CODE ENDS							   #
@@ -55,8 +55,8 @@ class MyAI( AI ):
 						continue
 					if((i,j) in self.dangerous):  #if '0' 's neigher is dangerous, then remove it from dangerous
 						self.dangerous.clear((i,j))
-					self.covered.append((i,j))
-					self.to_covered.append((i,j))
+					self.uncovered.append((i,j))
+					self.to_uncovered.append((i,j))
 
 		else: #number is 1, all its uncovered neighboor are dangerous
 			for i in range(self.x-1, self.x+2):
