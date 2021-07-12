@@ -60,35 +60,23 @@ class MyAI( AI ):
 						continue
 					if(i==self.x and j==self.y): #i skip itself
 						continue
-					if((i,j) in self.uncovered):
-						continue
-					self.to_uncovered.append((i,j))
-					self.uncovered.append((i,j))
+					if((i,j) not in self.uncovered):
+						self.to_uncovered.append((i,j))
+						self.uncovered.append((i,j))
+						self.frotier.append((i,j))
 
-		elif(1==number and self.totalMines!=0): #number is 1, find the one that only have 1 covered, which is mine--- only for 5*5
-			count = 0
+		elif(1==number): #number is 1, find the one that only have 1 covered, which is mine--- only for 5*5
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					if((i,j) not in self.uncovered):
-						tx=i
-						ty=j
-						count+=1
+						self.danger.append((i,j))
 
-			if(count == 1 ):  # only mine is found
-				# add all other tile to_uncovered
-				self.totalMines-=1
-				for j in range(self.row-1):
-					for k in range(self.col-1):
-						if(j==tx and k==ty):
-							continue
-						if(i,j) not in self.covered:
-							self.uncovered.append((j,k))
-							self.to_uncovered.append((j,k))
 
 		while(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
-					
+
+		print(len(self.danger))			
 		# uncovered all reset tile
 		#return Action(AI.Action.LEAVE)
 		
