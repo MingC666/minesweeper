@@ -30,7 +30,7 @@ class MyAI( AI ):
 		self.y = startY
 		self.lastx = startX
 		self.lasty = startY
-		self.beginpoint = (startX, startY)
+		self.beginPoint = (startX, startY)
 		
 
 		self.covered = []
