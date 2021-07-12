@@ -74,6 +74,8 @@ class MyAI( AI ):
 
 		if(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
+			self.x=temp[0]
+			self.y=temp[1]
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 
