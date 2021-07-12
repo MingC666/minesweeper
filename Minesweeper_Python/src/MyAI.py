@@ -72,7 +72,7 @@ class MyAI( AI ):
 			
 
 		else: #number is 1
-			self.board[self.lastx][self.lasty] = number
+			self.map[self.lastx][self.lasty] = number
 
 
 		if(self.to_uncovered != []):
