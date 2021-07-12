@@ -68,7 +68,7 @@ class MyAI( AI ):
 						continue
 					self.dangerous.append((i,j))
 		
-		if(self.to_covered!=[]):
+		if(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 					
