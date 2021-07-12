@@ -62,8 +62,6 @@ class MyAI( AI ):
 						continue
 					self.to_uncovered.append((i,j))
 					self.uncovered.append((i,j))
-			temp=self.to_uncovered.pop(0)
-			self.move=len(self.to_uncovered)
 
 		elif(1==number and self.totalMines!=0): #number is 1, find the one that only have 1 covered, which is mine--- only for 5*5
 			count = 0
@@ -79,8 +77,8 @@ class MyAI( AI ):
 				for j in range(self.row-1):
 					for k in range(self.col-1):
 						if(i,j) not in self.covered:
-							self.uncovered.append(j,k)
-							self.to_uncovered.append(j,k)
+							self.uncovered.append((j,k))
+							self.to_uncovered.append((j,k))
 
 		while(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
