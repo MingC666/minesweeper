@@ -65,7 +65,7 @@ class MyAI( AI ):
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 
-		else: #number is 1, find the one that only have 1 covered, which is mine--- only for 5*5
+		elif(1==number and self.totalMines!=0): #number is 1, find the one that only have 1 covered, which is mine--- only for 5*5
 			count = 0
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
@@ -74,7 +74,13 @@ class MyAI( AI ):
 						ty=j
 						count+=1
 			if(count ==1 ):  #find mine is found
-				return Action(AI.Action.FLAG, tx, ty)
+				# add all tile to_uncovered
+				self.totalMines-=1
+				for j in range(self.row-1):
+					for k in range(self.col-1):
+						if(i,j) not in self.covered:
+							self.uncovered.append(j,k)
+							self.to_uncovered(j,k)
 
 		while(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
