@@ -50,7 +50,7 @@ class MyAI( AI ):
 		
 
 		# Uncover all if number = 0
-		if(0 == number):
+		if(0 == number and self.to_uncovered==[]):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					# boundary checking
