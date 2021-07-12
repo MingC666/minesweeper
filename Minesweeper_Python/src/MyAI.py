@@ -30,7 +30,6 @@ class MyAI( AI ):
 		self.y = startY
 		self.lastx = startX
 		self.lasty = startY
-		self.beginPoint = (startX, startY)
 		
 
 		self.covered = []
@@ -61,10 +60,13 @@ class MyAI( AI ):
 		# Uncover all if number = 0
 		if(0 == number):
 			self.safelist.append((self.lastx, self.lasty))
-			for i in range(max(self.lastx-1,0),min(self.col,self.lastx+2)):
-				for j in range(max(self.lasty-1,0),min(self.row,self.lasty+2)):
+			for i in range(self.lax-1, self.lastx+2):
+				for j in range(self.lasty-1, self.lasty+2):
+					# boundary checking
+					if(i<0 or i>self.row-1 or j<0 or j>self.col-1):
+						continue
 					self.map[i][j] = 0
-					if((i,j)!=self.beginPoint and ((i,j) not in self.safelist) and ((i,j) not in self.to_uncovered)):
+					if((i,j)!=(self.x,self.y) and ((i,j) not in self.safelist) and ((i,j) not in self.to_uncovered)):
 						self.to_uncovered.append((i,j))
 			
 
