@@ -60,6 +60,8 @@ class MyAI( AI ):
 						continue
 					if(i==self.x and j==self.y): #i skip itself
 						continue
+					if((i,j) in self.uncovered):
+						continue
 					self.to_uncovered.append((i,j))
 					self.uncovered.append((i,j))
 
