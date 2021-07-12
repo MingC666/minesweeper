@@ -49,7 +49,6 @@ class MyAI( AI ):
 		########################################################################
 		while(self.move>0):
 			temp=self.to_uncovered.pop(0)
-			print(temp[0], temp[1])
 			self.move-=1
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 		
