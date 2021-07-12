@@ -80,7 +80,7 @@ class MyAI( AI ):
 					for k in range(self.col-1):
 						if(i,j) not in self.covered:
 							self.uncovered.append(j,k)
-							self.to_uncovered(j,k)
+							self.to_uncovered.append(j,k)
 
 		while(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
