@@ -28,18 +28,23 @@ class MyAI( AI ):
 		self.totalMines = totalMines
 		self.x = startX 
 		self.y = startY
+		self.lastx = startX
+		self.lasty = startY
+
+		
+
 		self.covered = []
+		self.to_uncovered = []
+		self.safelist = []
 		#initial covered list
-		for i in range(self.row-1):
-				for j in range(self.col-1):
-					self.covered.append((i,j))
+		#for i in range(self.row-1):
+			#for j in range(self.col-1):
+					#self.covered.append((i,j))
 			
 		#initial map list
 		rows, cols = (self.row, self.col)
 		self.map = [[-1 for i in range(cols)] for j in range(rows)]
 
-		self.to_uncovered = []
-		self.covered = []
 		########################################################################
 		#							YOUR CODE ENDS							   #
 		########################################################################
@@ -55,10 +60,9 @@ class MyAI( AI ):
 
 		# Uncover all if number = 0
 		if(0 == number):
-			self.map[self.x][self.y] = 0
-			self.covered.remove((self.x,self.y))
-			for i in range(self.x-1, self.x+2):
-				for j in range(self.y-1, self.y+2):
+			self.safelist.append(self.lastx, self.lasty)
+			for i in range(self.lastx-1, self.lastx+2):
+				for j in range(self.lasty-1, self.lasty+2):
 					# boundary checking
 					if(i<0 or i>self.row-1 or j<0 or j>self.col-1):
 						continue
@@ -68,52 +72,49 @@ class MyAI( AI ):
 			
 
 		else: #number is 1
-			self.map[self.x][self.y] = 1
-			self.covered.remove((self,x,self,y))
+			self.board[self.lastx][self.lasty] = number
 
 
 		if(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
-			self.x=temp[0]
-			self.y=temp[1]
+			self.lastx=temp[0]
+			self.lasty=temp[1]
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 
 	
-		if(self.to_uncovered != []):
-			temp = self.to_uncovered.pop(0)
-			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+		#if(self.to_uncovered != []):
+			#temp = self.to_uncovered.pop(0)
+			#return Action(AI.Action.UNCOVER, temp[0], temp[1])
+		for i in range(self.row):
+			for j in range(self.col):
+				if self.map[i][j] == -1:
+					self.covered.append((i,j))
 
 
-		if(len(self.dangerous)==1):
-			t=self.dangerous.pop(0)
-			return Action(AI.Action.FLAG, t[0], t[1])
+		count = 0
+		minelist = []
+		for i in range(1, self.row-1):
+			for j in range(1, self.row-1):
+				if (self.board[i][j]) == -1:
+					minelist.append((i,j))
+					count += 1
+		
+		if(count == 1):
+			self.covered.remove(minelist[0])
 
-		else:
-			#Testing mine, for that dangerous tile, if all its neighbor -1 and there are not more 1, then it is mine	
-			temparr = list(map(list, self.map))
-			# for each dangerous
-			for (j,k) in self.dangerous:
-				#all its surrounding -1
-				for j in range(self.x-1, self.x+2):
-					for k in range(self.y-1, self.y+2):
-						if(j<0 or j>self.row-1 or k<0 or k>self.col-1):
-							continue
-						temparr[j][k] -= 1
-				# check the map if there are all 0
-				for i in range(len(temparr)):
-   					 for j in range(len(temparr[i])):
-						if(temparr[i][j]==1):
-							fla=False
+		for tile in self.covered:
+			return Action(AI.Action.UNCOVER, tile[0], tile[1])
+
+			# check if the map temparr  are all 0, if yes, (j,k) are mine, uncovered all self.covered except (j,k)
+
+
+				
+
+   					 
 							
 							 
-				
-		# uncovered all reset tile
-		#return Action(AI.Action.LEAVE)
-		
-		
-
-
+	
 		########################################################################
 		#							YOUR CODE ENDS							   #
 		########################################################################
