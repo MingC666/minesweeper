@@ -61,20 +61,26 @@ class MyAI( AI ):
 					if(i==self.x and j==self.y): #i skip itself
 						continue
 					self.to_uncovered.append((i,j))
-					self.covered.append((i,j))
+					self.uncovered.append((i,j))
 			temp=self.to_uncovered.pop(0)
 			self.move=len(self.to_uncovered)
 
-		else: #number is 1, all its uncovered neighboor are dangerous
+		else: #number is 1, find the one that only have 1 covered, which is mine--- only for 5*5
+			count = 0
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
-					if((i,j) not in self.covered):
-						self.danger.append((i,j))
+					if((i,j) not in self.uncovered):
+						tx=i
+						ty=j
+						count+=1
+			if(count ==1 ):  #find mine is found
+				return Action(AI.Action.FLAG, tx, ty)
+
 		while(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 					
-		
+		# uncovered all reset tile
 		#return Action(AI.Action.LEAVE)
 		
 		
