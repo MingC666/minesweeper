@@ -93,7 +93,7 @@ class MyAI( AI ):
 		minelist = []
 		for i in range(1, self.row-1):
 			for j in range(1, self.row-1):
-				if (self.board[i][j]) == -1:
+				if (self.map[i][j]) == -1:
 					minelist.append((i,j))
 					count += 1
 		
