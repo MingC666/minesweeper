@@ -29,7 +29,9 @@ class MyAI( AI ):
 		self.x = startX 
 		self.y = startY
 		self.uncovered =[]
-		self.to_uncovered =[]
+		self.to_uncovered = []
+		self.covered = []
+		self.danger = []
 		self.move=0
 		for i in range(self.row):
 				for j in range(self.col):
@@ -47,6 +49,9 @@ class MyAI( AI ):
 		########################################################################
 		#							YOUR CODE BEGINS						   #
 		########################################################################
+		
+
+		# Uncover all if number = 0
 		if(0 == number):
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
@@ -55,10 +60,22 @@ class MyAI( AI ):
 						continue
 					if(i==self.x and j==self.y): #i skip itself
 						continue
-			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+					self.to_uncovered.append((i,j))
+					self.covered.append((i,j))
+			temp=self.to_uncovered.pop(0)
+			self.move=len(self.to_uncovered)
 
-		
-		
+		else: #number is 1, all its uncovered neighboor are dangerous
+			for i in range(self.x-1, self.x+2):
+				for j in range(self.y-1, self.y+2):
+					if((i,j) not in self.covered):
+						self.danger.append((i,j))
+
+		while(self.to_uncovered != []):
+			temp = self.to_uncovered.pop(0)
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+					
+		# uncovered all reset tile
 		#return Action(AI.Action.LEAVE)
 		
 		
