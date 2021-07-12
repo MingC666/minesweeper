@@ -71,11 +71,13 @@ class MyAI( AI ):
 						tx=i
 						ty=j
 						count+=1
-			if(count ==1 ):  #find mine is found
-				# add all tile to_uncovered
+			if(count == 1 ):  # only mine is found
+				# add all other tile to_uncovered
 				self.totalMines-=1
 				for j in range(self.row-1):
 					for k in range(self.col-1):
+						if(j==tx and k==ty):
+							continue
 						if(i,j) not in self.covered:
 							self.uncovered.append((j,k))
 							self.to_uncovered.append((j,k))
