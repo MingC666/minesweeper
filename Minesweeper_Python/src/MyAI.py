@@ -28,16 +28,9 @@ class MyAI( AI ):
 		self.totalMines = totalMines
 		self.x = startX 
 		self.y = startY
-		self.uncovered =[]
-		self.to_uncovered = []
 		self.covered = []
-		self.danger = []
-		self.move=0
-		for i in range(self.row):
-				for j in range(self.col):
-					self.uncovered.append((i,j))
-		self.uncovered.remove((self.x,self.y))
-		self.frotier = []
+		self.to_covered = []
+		self.dangerous = []
 		########################################################################
 		#							YOUR CODE ENDS							   #
 		########################################################################
@@ -60,18 +53,22 @@ class MyAI( AI ):
 						continue
 					if(i==self.x and j==self.y): #i skip itself
 						continue
-					self.to_uncovered.append((i,j))
+					if((i,j) in self.dangerous):  #if '0' 's neigher is dangerous, then remove it from dangerous
+						self.dangerous.clear((i,j))
 					self.covered.append((i,j))
-			temp=self.to_uncovered.pop(0)
-			self.move=len(self.to_uncovered)
+					self.to_covered.append((i,j))
 
 		else: #number is 1, all its uncovered neighboor are dangerous
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
-					if((i,j) not in self.covered):
-						self.danger.append((i,j))
-
-		while(self.to_uncovered != []):
+					# boundary checking
+					if(i<0 or i>self.row-1 or j<0 or j>self.col-1):
+						continue
+					if(i==self.x and j==self.y): #i skip itself
+						continue
+					self.dangerous.append((i,j))
+		
+		if(self.to_covered!=[]):
 			temp = self.to_uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 					
