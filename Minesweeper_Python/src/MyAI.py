@@ -60,6 +60,8 @@ class MyAI( AI ):
 						continue
 					if(i==self.x and j==self.y): #i skip itself
 						continue
+					if((i,j) in self.uncovered):
+						continue
 					self.to_uncovered.append((i,j))
 					self.uncovered.append((i,j))
 
@@ -71,6 +73,7 @@ class MyAI( AI ):
 						tx=i
 						ty=j
 						count+=1
+
 			if(count == 1 ):  # only mine is found
 				# add all other tile to_uncovered
 				self.totalMines-=1
