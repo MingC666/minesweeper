@@ -63,6 +63,7 @@ class MyAI( AI ):
 						continue
 					self.to_uncovered.append((i,j))
 					self.covered.append((i,j))
+		
 
 		else: #number is 1 for 5*5, then uncover all except its neighboor.
 			for i in range(self.row-1):
@@ -72,17 +73,24 @@ class MyAI( AI ):
 					self.to_uncovered.append((i,j))
 					self.uncovered.remove((i,j))
 		# until now, all 0 must be found	
+
+		while(self.to_uncovered != [] ):
+			temp = self.uncovered.pop(0)
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+
+			
 		# find uncover list
 		for i in range(self.row-1):
 				for j in range(self.col-1):		
 					if (i,j) in self.covered:
 						continue
 					self.uncovered.append(i,j)
-		print(self.uncovered)		
-			
+		
 		while(self.to_uncovered != [] ):
 			temp = self.uncovered.pop(0)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+		#print(self.uncovered)			
+
 		
 		#return Action(AI.Action.LEAVE)
 		
