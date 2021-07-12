@@ -68,6 +68,23 @@ class MyAI( AI ):
 			self.move=len(self.to_uncovered)
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
+		else: #number is 1, then uncover all except its uncovered neighboor.
+			square9 = []
+			for i in range(self.x-1, self.x+2):
+				for j in range(self.y-1, self.y+2):
+					square9.append(i,j)
+			for i in range(self.row-1):
+				for j in range(self.col-1):
+					for tpoint in square9:
+						continue
+					self.to_uncovered.append((i,j))
+					self.uncovered.remove((i,j))
+					
+		while(self.to_uncovered != [] ):
+			temp = self.uncovered.pop(0)
+			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+		
+		#return Action(AI.Action.LEAVE)
 		
 		
 
