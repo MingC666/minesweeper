@@ -28,6 +28,8 @@ class MyAI( AI ):
 		self.totalMines = totalMines
 		self.x = startX 
 		self.y = startY
+		self.lastx = startX
+		self.lasty = startY
 		
 
 		self.covered = []
@@ -57,9 +59,9 @@ class MyAI( AI ):
 
 		# Uncover all if number = 0
 		if(0 == number):
-			self.safelist.append((self.x, self.y))
-			for i in range(self.x-1, self.x+2):
-				for j in range(self.y-1, self.y+2):
+			self.safelist.append((self.lastx, self.lasty))
+			for i in range(self.lastx-1, self.lastx+2):
+				for j in range(self.lasty-1, self.lasty+2):
 					# boundary checking
 					if(i<0 or i>self.row-1 or j<0 or j>self.col-1):
 						continue
@@ -69,27 +71,26 @@ class MyAI( AI ):
 			
 
 		else: #number is 1
-			self.map[self.x][self.y] = number
+			self.map[self.lastx][self.lasty] = number
 
 
 		if(self.to_uncovered != []):
 			temp = self.to_uncovered.pop(0)
-			self.x = temp[0]
-			self.y = temp[1]
+			self.lastx = temp[0]
+			self.lasty = temp[1]
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 
 	
-		# if(self.to_uncovered != []):
+		#if(self.to_uncovered != []):
 			#temp = self.to_uncovered.pop(0)
 			#return Action(AI.Action.UNCOVER, temp[0], temp[1])
-		# find the tile that not uncovered
 		for i in range(self.row):
 			for j in range(self.col):
 				if( -1 == self.map[i][j]):
 					self.covered.append((i,j))
 
-		# find the mine, which that uncovered yet
+
 		count = 0
 		minelist = []
 		for i in range(1, self.row-1):
@@ -97,11 +98,10 @@ class MyAI( AI ):
 				if ( -1 == self.map[i][j]):
 					minelist.append((i,j))
 					count += 1
-		# remove the mine from list
+		
 		if( 1 == count):
 			self.covered.remove(minelist[0])
-			
-		#uncovered rest
+
 		for tile in self.covered:
 			return Action(AI.Action.UNCOVER, tile[0], tile[1])
 
