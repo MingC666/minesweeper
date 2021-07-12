@@ -60,7 +60,7 @@ class MyAI( AI ):
 
 		# Uncover all if number = 0
 		if(0 == number):
-			self.safelist.append(self.lastx, self.lasty)
+			self.safelist.append((self.lastx, self.lasty))
 			for i in range(self.lastx-1, self.lastx+2):
 				for j in range(self.lasty-1, self.lasty+2):
 					# boundary checking
