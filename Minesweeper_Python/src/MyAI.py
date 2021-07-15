@@ -29,10 +29,15 @@ class MyAI( AI ):
 		self.x = startX 
 		self.y = startY
 		
+		
 
 		self.covered = []
 		self.to_uncovered = []
 		self.checkedlist = []
+		#initial covered list
+		for i in range(self.row):
+			for j in range(self.col):
+					self.covered.append((i,j))
 
 		# add fisrt checked point
 		self.checkedlist.append((self.x, self.y))
@@ -49,10 +54,7 @@ class MyAI( AI ):
 		########################################################################
 		
 		# Uncover all surrounding that not uncovered yet, if number = 0
-
-		if(0 == number and len(self.checkedlist)<self.row*self.col-self.totalMines):  # number of unchecked < total tile - #mine
-				# i=2, j=0
-				# rang(1,4)
+		if(0 == number and len(self.covered)>self.totalMines):  # number of unchecked < total tile - #mine
 			for i in range(self.x-1, self.x+2):
 				for j in range(self.y-1, self.y+2):
 					# boundary checking
@@ -62,15 +64,19 @@ class MyAI( AI ):
 						#print("I am in 000 area!! ", (self.x,self.y), "will uncovered", (i,j) )
 						self.checkedlist.append((i,j))
 						self.to_uncovered.append((i,j))
-		
+
 		
 		# checking if unmber is not 0
-		if(number!=0 and len(self.checkedlist)<self.row*self.col-self.totalMines):  # number of unchecked < total tile - #mine
+		if(number!=0 and len(self.covered)>self.totalMines):	# number of unchecked < total tile - #mine
 			for i in range(self.row):
 				for j in range(self.col):
-					if( (i>self.x-1 and i<self.x+2) or (j>self.y-1 and j<self.y+2) ):
+					# SELF.X = 1, SELF.Y=3
+					#  i=0,4=j
+					
+					if( (i<=self.x+1 and i>=self.x-1) and (j<=self.y+1 and j>=self.y-1) ):
 						continue
-					if( (i,j) not in self.checkedlist or (i,j) in self.covered):
+                        
+					if( (i,j) not in self.checkedlist):
 						#print("I am in MINE area!! ", (self.x,self.y), "will uncovered", (i,j) )
 						self.checkedlist.append((i,j))
 						self.to_uncovered.append((i,j))
@@ -80,6 +86,7 @@ class MyAI( AI ):
 			temp = self.to_uncovered.pop(0)
 			self.x = temp[0]
 			self.y = temp[1]
+			self.covered.remove((self.x, self.y))
 			return Action(AI.Action.UNCOVER, temp[0], temp[1])
 
 
