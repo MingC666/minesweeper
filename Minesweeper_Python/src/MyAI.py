@@ -245,25 +245,37 @@ class MyAI( AI ):
 				self.checkedlist.append((0,0))
 				self.x=0
 				self.y=0
-				return Action(AI.Action.UNCOVER, 0, 0)
+				if(self.row != self.col):
+					return Action(AI.Action.UNCOVER, self.y, self.x)
+				else:
+					return Action(AI.Action.UNCOVER, self.x, self.y)
 			elif(self.map[0][self.col-1]==-1):
 				self.covered.remove((0,self.col-1))
 				self.checkedlist.append((0,self.col-1))
 				self.x=0
 				self.y=self.col-1
-				return Action(AI.Action.UNCOVER, 0, self.col-1)
+				if(self.row != self.col):
+					return Action(AI.Action.UNCOVER, self.y, self.x)
+				else:
+					return Action(AI.Action.UNCOVER, self.x, self.y)
 			elif(self.map[self.row-1][0]==-1):
 				self.covered.remove((self.row-1,0))
 				self.checkedlist.append((self.row-1,0))
 				self.x=self.row-1
 				self.y=0
-				return Action(AI.Action.UNCOVER, self.row-1, 0)
+				if(self.row != self.col):
+					return Action(AI.Action.UNCOVER, self.y, self.x)
+				else:
+					return Action(AI.Action.UNCOVER, self.x, self.y)
 			elif(self.map[self.row-1][self.col-1]==-1):
 				self.covered.remove((self.row-1,self.col-1))
 				self.checkedlist.append((self.row-1,self.col-1))
 				self.x=self.row-1
 				self.y=self.col-1
-				return Action(AI.Action.UNCOVER, self.row-1, self.col-1)
+				if(self.row != self.col):
+					return Action(AI.Action.UNCOVER, self.y, self.x)
+				else:
+					return Action(AI.Action.UNCOVER, self.x, self.y)
 			else:		# all cornor are uncovered, using method 1
 				#print("active random AI")
 				temp = self.covered.pop(random.randrange(len(self.covered)))
