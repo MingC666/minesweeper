@@ -53,7 +53,8 @@ class MyAI( AI ):
 					if(i==self.x and j==self.y):
 						continue
 					self.covered.append((i,j))
-		#remove initial tile from covered list	
+		#remove initial tile from covered list			
+		#self.covered.remove((self.x,self.y))
 
 		# add fisrt checked point
 		self.checkedlist.append((self.x, self.y))
@@ -69,7 +70,6 @@ class MyAI( AI ):
 		########################################################################
 		#							YOUR CODE BEGINS						   #
 		########################################################################
-		
 		"""print("Now, ", (self.x,self.y), "=", number, "Before change the map[][]:")
 		for i in self.map:
 			print(i)"""
@@ -127,9 +127,13 @@ class MyAI( AI ):
 			temp = self.to_uncovered.pop(0)
 			self.x = temp[0]
 			self.y = temp[1]
+			self.covered.remove((self.x, self.y))
 			#print(len(self.covered), " tiles are covered")
 			#print("it going to uncovered ", (self.x, self.y) )
-			return Action(AI.Action.UNCOVER, self.x, self.y)
+			if(self.row != self.col):
+				return Action(AI.Action.UNCOVER, self.y, self.x)
+			else:
+				return Action(AI.Action.UNCOVER, self.x, self.y)
 
 		if(self.minelist != []):
 			temp = self.minelist.pop(0)
@@ -138,10 +142,16 @@ class MyAI( AI ):
 			self.covered.remove((self.x, self.y))
 			self.totalMines -= 1
 			#print(len(self.covered), " tiles are covered")
-			return Action(AI.Action.FLAG, self.x, self.y)
+			if(self.row != self.col):
+				return Action(AI.Action.FLAG, self.y, self.x)
+			else:
+				return Action(AI.Action.FLAG, self.x, self.y)
 		#########################################################
 		#################### Frontier list updating #############
 		#
+		#print(len(self.covered))
+		if(len(self.covered)==0):
+			return Action(AI.Action.LEAVE)
 		self.frontier_cover = []
 		self.frontier_uncover = []
 		# getting frontier_uncovered from checked list, if the tile has covered tiles surrounded
@@ -167,7 +177,7 @@ class MyAI( AI ):
 						if(r<0 or r>self.row-1 or c<0 or c>self.col-1):
 							continue
 						if((r,c) not in self.checkedlist):
-							#print("find a 0 in frontier ", (i,j),", and adding", (r,c), "for uncovered")
+							print("find a 0 in frontier ", (i,j),", and adding", (r,c), "for uncovered")
 							self.checkedlist.append((r,c))		# mark that the tile is checked
 							self.to_uncovered.append((r,c))
 							
@@ -199,7 +209,10 @@ class MyAI( AI ):
 			self.x = temp[0]
 			self.y = temp[1]
 			self.covered.remove((self.x, self.y))
-			return Action(AI.Action.UNCOVER, temp[0], temp[1])
+			if(self.row != self.col):
+				return Action(AI.Action.UNCOVER, self.y, self.x)
+			else:
+				return Action(AI.Action.UNCOVER, self.x, self.y)
 
 		if(self.minelist != []):
 			temp = self.minelist.pop(0)
@@ -207,7 +220,10 @@ class MyAI( AI ):
 			self.y = temp[1]
 			self.covered.remove((self.x, self.y))
 			self.totalMines -= 1
-			return Action(AI.Action.FLAG, self.x, self.y)
+			if(self.row != self.col):
+				return Action(AI.Action.FLAG, self.y, self.x)
+			else:
+				return Action(AI.Action.FLAG, self.x, self.y)
 
 		################################################################################
 		################# IF THERE ARE NOT HINT FROM UNCOVERED TILE TO GET NEXT UNCOVERED TILE
@@ -229,25 +245,25 @@ class MyAI( AI ):
 				self.checkedlist.append((0,0))
 				self.x=0
 				self.y=0
-				return Action(AI.Action.UNCOVER, self.x, self.y)
+				return Action(AI.Action.UNCOVER, 0, 0)
 			elif(self.map[0][self.col-1]==-1):
 				self.covered.remove((0,self.col-1))
 				self.checkedlist.append((0,self.col-1))
 				self.x=0
 				self.y=self.col-1
-				return Action(AI.Action.UNCOVER, self.x, self.y)
+				return Action(AI.Action.UNCOVER, 0, self.col-1)
 			elif(self.map[self.row-1][0]==-1):
 				self.covered.remove((self.row-1,0))
 				self.checkedlist.append((self.row-1,0))
 				self.x=self.row-1
 				self.y=0
-				return Action(AI.Action.UNCOVER, self.x, self.y)
+				return Action(AI.Action.UNCOVER, self.row-1, 0)
 			elif(self.map[self.row-1][self.col-1]==-1):
 				self.covered.remove((self.row-1,self.col-1))
 				self.checkedlist.append((self.row-1,self.col-1))
 				self.x=self.row-1
 				self.y=self.col-1
-				return Action(AI.Action.UNCOVER, self.x, self.y)
+				return Action(AI.Action.UNCOVER, self.row-1, self.col-1)
 			else:		# all cornor are uncovered, using method 1
 				#print("active random AI")
 				temp = self.covered.pop(random.randrange(len(self.covered)))
@@ -255,6 +271,9 @@ class MyAI( AI ):
 				self.y = temp[1]
 				#print("ther random is ", (self.x, self.y))
 				self.checkedlist.append((self.x, self.y))
+			if(self.row != self.col):
+				return Action(AI.Action.UNCOVER, self.y, self.x)
+			else:
 				return Action(AI.Action.UNCOVER, self.x, self.y)
 
 
