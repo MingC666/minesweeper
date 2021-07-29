@@ -177,7 +177,7 @@ class MyAI( AI ):
 						if(r<0 or r>self.row-1 or c<0 or c>self.col-1):
 							continue
 						if((r,c) not in self.checkedlist):
-							print("find a 0 in frontier ", (i,j),", and adding", (r,c), "for uncovered")
+							#print("find a 0 in frontier ", (i,j),", and adding", (r,c), "for uncovered")
 							self.checkedlist.append((r,c))		# mark that the tile is checked
 							self.to_uncovered.append((r,c))
 							
